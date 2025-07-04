@@ -7,6 +7,10 @@ public class Point2D {
 	private double y;
 	
 	public Point2D() {
+		this(0,0);
+	}
+	
+	public void acceptdata() {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Enter x cordinate: ");
 		this.x = sc.nextDouble();
