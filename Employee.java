@@ -1,53 +1,93 @@
-import java.util.Scanner;
-public class Employee {
-	private String Name;
-	private int Empid;
-	private double Salary;
-	
-	//constructor-prameterless
-	public Employee() {
-		System.out.println("Employee()");
-		Name="Navanath";
-		Empid=123456;
-		Salary=50000;//constructor chaining
-	}
-	//parameterized constructor
-	public Employee(String Name,int Empid,double Salary) {
-		System.out.println("Employee(String Name,int Empid,double Salary)");
-		this.Name=Name;
-		this.Empid=Empid;
-		this.Salary=Salary;
-	}
-	//setter
-	public void setName() {
-		System.out.print("Enter Name : ");
-		Scanner sc = new Scanner(System.in);
-		this.Name=sc.nextLine();
-	}
-	public void setEmpid() {
-		System.out.print("Enter Employee ID : ");
-		Scanner sc = new Scanner(System.in);
-		this.Empid=sc.nextInt();
-	}
-	public void setSalary() {
-		System.out.print("Enter Salary : ");
-		Scanner sc = new Scanner(System.in);
-		this.Salary=sc.nextDouble();
-	}
-	
-	//getter
-	public void printRecord() {
-		System.out.println("Employee Name : "+Name);
-		System.out.println("Employee ID : "+Empid);
-		System.out.println("Employee Salary : "+Salary);
-	}
-	public static void main(String[] args) {
-		Employee emp1= new Employee();
-		emp1.printRecord();
-		emp1.setName();
-		emp1.setEmpid();
-		emp1.setSalary();
-		emp1.printRecord();
+package employeemanagement;
 
+import java.util.Scanner;
+
+public class Employee extends Person implements Comparable <Employee>{
+	int id;
+	String department;
+	double salary;
+	MyDate dateofjoining = new MyDate();
+	
+	public Employee() {
+		this(0,null,0,new MyDate());
 	}
+	
+	public Employee(int id, String department, double salary, MyDate dateofjoining) {
+		super("Haris",new MyDate(01,01,2006));
+		this.id = id;
+		this.department = department;
+		this.salary = salary;
+		this.dateofjoining = dateofjoining;
+	}
+	
+	public void acceptData() {
+		super.acceptData();
+		@SuppressWarnings("resource")
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter the ID :");
+		this.id = sc.nextInt();
+		System.out.println();
+		System.out.print("Enter the Department :");
+		this.department = sc.next();
+		System.out.println();
+		System.out.print("Enter the salary :");
+		this.salary = sc.nextDouble();
+		System.out.println();
+		System.out.print("Enter the Date of Joining :");
+		 this.dateofjoining = new MyDate().acceptDate();
+		System.out.println();
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
+	
+
+	public MyDate getDateofjoining() {
+		return dateofjoining;
+	}
+
+	public void setDateofjoining(MyDate dateofjoining) {
+		this.dateofjoining = dateofjoining;
+	}
+
+	@Override
+	public String toString() {
+		return super.toString() +"\n Id :" + id + "\n Department :" + department + "\n Salary :" + salary + "\n DateOfJoining :" + dateofjoining + "";
+	}
+
+
+	@Override
+	public int compareTo(Employee o) {
+		if(this.getSalary()>o.getSalary()) {
+			return 1;
+		}
+		else if(this.getSalary()==o.getSalary()) {
+			return 0;
+		}
+		else {
+			return -1;
+		}
+	}
+	
 }
